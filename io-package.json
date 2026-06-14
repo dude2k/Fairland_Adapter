@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.5": {
+        "en": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
+        "de": "Aktualisiert die Installationsdokumentation nach der npm-Veroeffentlichung und dokumentiert die beantragte ioBroker-Repository-Freigabe.",
+        "ru": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
+        "pt": "Atualiza a documentacao de instalacao apos a publicacao no npm e documenta a aprovacao pendente do repositorio ioBroker.",
+        "nl": "Werkt de installatiedocumentatie bij na publicatie op npm en documenteert de aangevraagde ioBroker-repositorygoedkeuring.",
+        "fr": "Met a jour la documentation d installation apres la publication npm et documente l approbation ioBroker en attente.",
+        "it": "Aggiorna la documentazione di installazione dopo la pubblicazione su npm e documenta l approvazione in sospeso del repository ioBroker.",
+        "es": "Actualiza la documentacion de instalacion tras la publicacion en npm y documenta la aprobacion pendiente del repositorio ioBroker.",
+        "pl": "Aktualizuje dokumentacje instalacji po publikacji w npm i dokumentuje oczekujace zatwierdzenie repozytorium ioBroker.",
+        "uk": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
+        "zh-cn": "Update installation documentation after npm publication and document the pending ioBroker repository approval."
+      },
       "0.2.4": {
         "en": "Optimize the adapter icon image size.",
         "de": "Optimiert die Bildgroesse des Adapter-Icons.",
