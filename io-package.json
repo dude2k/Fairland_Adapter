@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.6": {
+        "en": "Remove discouraged manual installation instructions from the README.",
+        "de": "Entfernt nicht empfohlene manuelle Installationshinweise aus der README.",
+        "ru": "Remove discouraged manual installation instructions from the README.",
+        "pt": "Remove instrucoes de instalacao manual nao recomendadas do README.",
+        "nl": "Verwijdert afgeraden handmatige installatie-instructies uit de README.",
+        "fr": "Supprime du README les instructions d installation manuelle deconseillees.",
+        "it": "Rimuove dal README le istruzioni di installazione manuale sconsigliate.",
+        "es": "Elimina del README las instrucciones desaconsejadas de instalacion manual.",
+        "pl": "Usuwa z README niezalecane instrukcje recznej instalacji.",
+        "uk": "Remove discouraged manual installation instructions from the README.",
+        "zh-cn": "Remove discouraged manual installation instructions from the README."
+      },
       "0.2.5": {
         "en": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
         "de": "Aktualisiert die Installationsdokumentation nach der npm-Veroeffentlichung und dokumentiert die beantragte ioBroker-Repository-Freigabe.",
