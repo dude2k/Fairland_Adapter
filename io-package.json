@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.7": {
+        "en": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
+        "de": "Korrigiert die ioBroker-Objekthierarchie, verschiebt den Power-Schalter nach power.switch und nutzt gueltige Modus-Rollen.",
+        "ru": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
+        "pt": "Corrige a hierarquia de objetos ioBroker, move o interruptor de energia para power.switch e usa funcoes de modo validas.",
+        "nl": "Corrigeert de ioBroker-objecthierarchie, verplaatst de powerschakelaar naar power.switch en gebruikt geldige modusrollen.",
+        "fr": "Corrige la hierarchie des objets ioBroker, deplace l interrupteur d alimentation vers power.switch et utilise des roles de mode valides.",
+        "it": "Corregge la gerarchia degli oggetti ioBroker, sposta l interruttore di alimentazione in power.switch e usa ruoli di modalita validi.",
+        "es": "Corrige la jerarquia de objetos ioBroker, mueve el interruptor de energia a power.switch y usa roles de modo validos.",
+        "pl": "Poprawia hierarchie obiektow ioBroker, przenosi przelacznik zasilania do power.switch i uzywa prawidlowych rol trybu.",
+        "uk": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
+        "zh-cn": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles."
+      },
       "0.2.6": {
         "en": "Remove discouraged manual installation instructions from the README.",
         "de": "Entfernt nicht empfohlene manuelle Installationshinweise aus der README.",

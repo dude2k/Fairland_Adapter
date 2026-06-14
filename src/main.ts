@@ -107,7 +107,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.setStateAsync('info.courtyard', { val: this.courtyardId, ack: true });
 
             await this.extendObjectAsync('devices', {
-                type: 'channel',
+                type: 'folder',
                 common: { name: 'Devices' },
                 native: {},
             });
@@ -251,7 +251,7 @@ class FairlandAdapter extends utils.Adapter {
         const deviceBase = this.deviceBase(device);
         const powerDp = dpMap.get(HEAT_PUMP_POWER_DP_ID);
         if (powerDp) {
-            const stateId = `${deviceBase}.power`;
+            const stateId = `${deviceBase}.power.switch`;
             await this.ensureState(stateId, {
                 name: 'Power',
                 type: 'boolean',
@@ -275,7 +275,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
-                role: 'level.mode',
+                role: 'state',
                 read: true,
                 write: modeDp.dpMode === 'rw',
                 states: HEAT_HVAC_MODE_STATES,
@@ -324,7 +324,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.ensureState(stateId, {
                 name: 'Preset mode',
                 type: 'string',
-                role: 'level.mode',
+                role: 'state',
                 read: true,
                 write: presetDp.dpMode === 'rw',
                 states: toStatesObject(options),
@@ -366,7 +366,7 @@ class FairlandAdapter extends utils.Adapter {
         const deviceBase = this.deviceBase(device);
         const powerDp = dpMap.get(WATER_PUMP_POWER_DP_ID);
         if (powerDp) {
-            const stateId = `${deviceBase}.power`;
+            const stateId = `${deviceBase}.power.switch`;
             await this.ensureState(stateId, {
                 name: 'Power',
                 type: 'boolean',
@@ -391,7 +391,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
-                role: 'level.mode',
+                role: 'state',
                 read: true,
                 write: modeDp.dpMode === 'rw',
                 states: toStatesObject(options),
@@ -504,7 +504,7 @@ class FairlandAdapter extends utils.Adapter {
         const isOn = Boolean(powerRaw);
 
         if (dpMap.has(HEAT_PUMP_POWER_DP_ID)) {
-            await this.setStateAsync(`${deviceBase}.power`, { val: isOn, ack: true });
+            await this.setStateAsync(`${deviceBase}.power.switch`, { val: isOn, ack: true });
         }
 
         if (dpMap.has(HEAT_PUMP_HVAC_MODE_DP_ID)) {
@@ -549,7 +549,7 @@ class FairlandAdapter extends utils.Adapter {
         const deviceBase = this.deviceBase(device);
 
         if (dpMap.has(WATER_PUMP_POWER_DP_ID)) {
-            await this.setStateAsync(`${deviceBase}.power`, {
+            await this.setStateAsync(`${deviceBase}.power.switch`, {
                 val: Boolean(this.dpValue(device.id, dpMap, WATER_PUMP_POWER_DP_ID)),
                 ack: true,
             });
@@ -647,7 +647,7 @@ class FairlandAdapter extends utils.Adapter {
             this.notePendingWrite(mapping.deviceId, HEAT_PUMP_POWER_DP_ID, false);
             await this.setStateAsync(localId, { val: 'off', ack: true });
             if (deviceBase) {
-                await this.setStateAsync(`${deviceBase}.power`, { val: false, ack: true });
+                await this.setStateAsync(`${deviceBase}.power.switch`, { val: false, ack: true });
             }
             this.scheduleWriteRefresh();
             return;
@@ -665,7 +665,7 @@ class FairlandAdapter extends utils.Adapter {
         this.notePendingWrite(mapping.deviceId, mapping.dpId, rawMode);
 
         if (deviceBase) {
-            await this.setStateAsync(`${deviceBase}.power`, { val: true, ack: true });
+            await this.setStateAsync(`${deviceBase}.power.switch`, { val: true, ack: true });
         }
         await this.setStateAsync(localId, { val: mode, ack: true });
         this.scheduleWriteRefresh();
