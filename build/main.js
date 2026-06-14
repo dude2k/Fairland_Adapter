@@ -83,7 +83,7 @@ class FairlandAdapter extends utils.Adapter {
             this.courtyardId = this.selectCourtyard(courtyards, String(config.courtyardId ?? '').trim());
             await this.setStateAsync('info.courtyard', { val: this.courtyardId, ack: true });
             await this.extendObjectAsync('devices', {
-                type: 'channel',
+                type: 'folder',
                 common: { name: 'Devices' },
                 native: {},
             });
@@ -213,7 +213,7 @@ class FairlandAdapter extends utils.Adapter {
         const deviceBase = this.deviceBase(device);
         const powerDp = dpMap.get(mappings_1.HEAT_PUMP_POWER_DP_ID);
         if (powerDp) {
-            const stateId = `${deviceBase}.power`;
+            const stateId = `${deviceBase}.power.switch`;
             await this.ensureState(stateId, {
                 name: 'Power',
                 type: 'boolean',
@@ -236,7 +236,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
-                role: 'level.mode',
+                role: 'state',
                 read: true,
                 write: modeDp.dpMode === 'rw',
                 states: mappings_1.HEAT_HVAC_MODE_STATES,
@@ -283,7 +283,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.ensureState(stateId, {
                 name: 'Preset mode',
                 type: 'string',
-                role: 'level.mode',
+                role: 'state',
                 read: true,
                 write: presetDp.dpMode === 'rw',
                 states: (0, dpUtils_1.toStatesObject)(options),
@@ -322,7 +322,7 @@ class FairlandAdapter extends utils.Adapter {
         const deviceBase = this.deviceBase(device);
         const powerDp = dpMap.get(mappings_1.WATER_PUMP_POWER_DP_ID);
         if (powerDp) {
-            const stateId = `${deviceBase}.power`;
+            const stateId = `${deviceBase}.power.switch`;
             await this.ensureState(stateId, {
                 name: 'Power',
                 type: 'boolean',
@@ -346,7 +346,7 @@ class FairlandAdapter extends utils.Adapter {
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
-                role: 'level.mode',
+                role: 'state',
                 read: true,
                 write: modeDp.dpMode === 'rw',
                 states: (0, dpUtils_1.toStatesObject)(options),
@@ -443,7 +443,7 @@ class FairlandAdapter extends utils.Adapter {
         const powerRaw = this.dpValue(device.id, dpMap, mappings_1.HEAT_PUMP_POWER_DP_ID);
         const isOn = Boolean(powerRaw);
         if (dpMap.has(mappings_1.HEAT_PUMP_POWER_DP_ID)) {
-            await this.setStateAsync(`${deviceBase}.power`, { val: isOn, ack: true });
+            await this.setStateAsync(`${deviceBase}.power.switch`, { val: isOn, ack: true });
         }
         if (dpMap.has(mappings_1.HEAT_PUMP_HVAC_MODE_DP_ID)) {
             const modeRaw = this.dpValue(device.id, dpMap, mappings_1.HEAT_PUMP_HVAC_MODE_DP_ID);
@@ -481,7 +481,7 @@ class FairlandAdapter extends utils.Adapter {
     async updateWaterPumpStates(device, dpMap) {
         const deviceBase = this.deviceBase(device);
         if (dpMap.has(mappings_1.WATER_PUMP_POWER_DP_ID)) {
-            await this.setStateAsync(`${deviceBase}.power`, {
+            await this.setStateAsync(`${deviceBase}.power.switch`, {
                 val: Boolean(this.dpValue(device.id, dpMap, mappings_1.WATER_PUMP_POWER_DP_ID)),
                 ack: true,
             });
@@ -557,7 +557,7 @@ class FairlandAdapter extends utils.Adapter {
             this.notePendingWrite(mapping.deviceId, mappings_1.HEAT_PUMP_POWER_DP_ID, false);
             await this.setStateAsync(localId, { val: 'off', ack: true });
             if (deviceBase) {
-                await this.setStateAsync(`${deviceBase}.power`, { val: false, ack: true });
+                await this.setStateAsync(`${deviceBase}.power.switch`, { val: false, ack: true });
             }
             this.scheduleWriteRefresh();
             return;
@@ -572,7 +572,7 @@ class FairlandAdapter extends utils.Adapter {
         await this.apiClient.setDeviceStatus(mapping.deviceId, mapping.dpId, rawMode);
         this.notePendingWrite(mapping.deviceId, mapping.dpId, rawMode);
         if (deviceBase) {
-            await this.setStateAsync(`${deviceBase}.power`, { val: true, ack: true });
+            await this.setStateAsync(`${deviceBase}.power.switch`, { val: true, ack: true });
         }
         await this.setStateAsync(localId, { val: mode, ack: true });
         this.scheduleWriteRefresh();

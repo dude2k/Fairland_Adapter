@@ -88,7 +88,7 @@ Common states:
 info.name
 info.category
 info.version
-power
+power.switch
 mode
 ```
 
@@ -154,6 +154,12 @@ The original project license notice is preserved in `LICENSE`, and additional
 third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
+
+### 0.2.7
+
+- Fixed the generated ioBroker object hierarchy for device objects.
+- Moved the writable power switch to `power.switch` so `power.current` can use a valid channel parent.
+- Replaced invalid mode roles with valid ioBroker state roles.
 
 ### 0.2.6
 
