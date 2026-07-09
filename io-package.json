@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.11",
+    "version": "0.2.12",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -55,18 +55,31 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.12": {
+        "en": "Restore required iGarden login country defaults and improve region detection error reporting.",
+        "de": "Stellt die benoetigten iGarden-Login-Laenderdefaults wieder her und verbessert die Fehlermeldung der Regionserkennung.",
+        "ru": "Vosstanovleny nuzhnye strannye defaulty dlya vhoda iGarden i uluchsheny soobshcheniya ob oshibkah opredeleniya regiona.",
+        "pt": "Restaura os padroes de pais necessarios para login iGarden e melhora os erros da deteccao de regiao.",
+        "nl": "Herstelt de vereiste iGarden-landdefaults voor login en verbetert foutmeldingen bij regiodetectie.",
+        "fr": "Restaure les valeurs pays requises pour la connexion iGarden et ameliore les erreurs de detection de region.",
+        "it": "Ripristina i default paese richiesti per il login iGarden e migliora gli errori di rilevamento regione.",
+        "es": "Restaura los valores de pais necesarios para el inicio de iGarden y mejora los errores de deteccion de region.",
+        "pl": "Przywraca wymagane domyslne kraje logowania iGarden i poprawia bledy wykrywania regionu.",
+        "uk": "Vidnovleno potribni krainovi defaulty dlia vhodu iGarden ta pokrashcheno povidomlennia pro pomylky vyznachennia rehionu.",
+        "zh-cn": "恢复 iGarden 登录所需的国家默认值，并改进区域检测错误报告。"
+      },
       "0.2.11": {
-        "en": "Improve object structure, polling, scan limits, region reuse, README links, and neutral login defaults.",
-        "de": "Verbessert Objektstruktur, Polling, Scan-Grenzen, Regionswiederverwendung, README-Links und neutrale Login-Defaults.",
-        "ru": "Uluchshena struktura obektov, polling, granitsy skanirovaniya, povtornoe ispolzovanie regiona, ssylki README i neitralnye login-defaulty.",
-        "pt": "Melhora a estrutura de objetos, polling, limites de varredura, reutilizacao da regiao, links do README e padroes neutros de login.",
-        "nl": "Verbetert objectstructuur, polling, scanlimieten, hergebruik van regio, README-links en neutrale loginstandaarden.",
-        "fr": "Ameliore la structure des objets, le polling, les limites de scan, la reutilisation de region, les liens README et les valeurs de connexion neutres.",
-        "it": "Migliora struttura oggetti, polling, limiti di scansione, riuso della regione, link README e default di accesso neutrali.",
-        "es": "Mejora la estructura de objetos, el sondeo, los limites de escaneo, la reutilizacion de region, los enlaces README y los valores de inicio neutros.",
-        "pl": "Ulepsza strukture obiektow, odpytywanie, limity skanowania, ponowne uzycie regionu, linki README i neutralne ustawienia logowania.",
-        "uk": "Polipsheno strukturu obiektiv, opytuvannia, mezhi skanuvannia, povtorne vykorystannia rehionu, posylannia README ta neitralni login-defaulty.",
-        "zh-cn": "改进对象结构、轮询、扫描限制、区域复用、README 链接和中性的登录默认值。"
+        "en": "Improve object structure, polling, scan limits, region reuse, and README links.",
+        "de": "Verbessert Objektstruktur, Polling, Scan-Grenzen, Regionswiederverwendung und README-Links.",
+        "ru": "Uluchshena struktura obektov, polling, granitsy skanirovaniya, povtornoe ispolzovanie regiona i ssylki README.",
+        "pt": "Melhora a estrutura de objetos, polling, limites de varredura, reutilizacao da regiao e links do README.",
+        "nl": "Verbetert objectstructuur, polling, scanlimieten, hergebruik van regio en README-links.",
+        "fr": "Ameliore la structure des objets, le polling, les limites de scan, la reutilisation de region et les liens README.",
+        "it": "Migliora struttura oggetti, polling, limiti di scansione, riuso della regione e link README.",
+        "es": "Mejora la estructura de objetos, el sondeo, los limites de escaneo, la reutilizacion de region y los enlaces README.",
+        "pl": "Ulepsza strukture obiektow, odpytywanie, limity skanowania, ponowne uzycie regionu i linki README.",
+        "uk": "Polipsheno strukturu obiektiv, opytuvannia, mezhi skanuvannia, povtorne vykorystannia rehionu ta posylannia README.",
+        "zh-cn": "改进对象结构、轮询、扫描限制、区域复用和 README 链接。"
       },
       "0.2.10": {
         "en": "Remove unpublished 0.2.8 news and add an ioBroker deploy action marker for repository checks.",
@@ -132,19 +145,6 @@
         "pl": "Aktualizuje dokumentacje instalacji po publikacji w npm i dokumentuje oczekujace zatwierdzenie repozytorium ioBroker.",
         "uk": "Оновлено документацію зі встановлення після публікації в npm і задокументовано очікуване схвалення репозиторію ioBroker.",
         "zh-cn": "npm 发布后更新安装文档，并记录待审批的 ioBroker 仓库收录。"
-      },
-      "0.2.4": {
-        "en": "Optimize the adapter icon image size.",
-        "de": "Optimiert die Bildgroesse des Adapter-Icons.",
-        "ru": "Оптимизирован размер изображения значка адаптера.",
-        "pt": "Otimiza o tamanho da imagem do icone do adaptador.",
-        "nl": "Optimaliseert de afbeeldingsgrootte van het adapterpictogram.",
-        "fr": "Optimise la taille de l image de l icone de l adaptateur.",
-        "it": "Ottimizza la dimensione dell immagine dell icona dell adattatore.",
-        "es": "Optimiza el tamano de imagen del icono del adaptador.",
-        "pl": "Optymalizuje rozmiar obrazu ikony adaptera.",
-        "uk": "Оптимізовано розмір зображення іконки адаптера.",
-        "zh-cn": "优化适配器图标图片大小。"
       }
     },
     "dependencies": [

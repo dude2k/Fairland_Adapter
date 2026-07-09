@@ -159,6 +159,11 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
 
+### 0.2.12
+
+- Restored the required default iGarden login country and phone codes.
+- Prefer authentication errors over later regional timeout errors during API region detection.
+
 ### 0.2.11
 
 - Added an official Fairland manufacturer link to the README.
@@ -167,7 +172,6 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 - Reused the last detected API region as startup hint.
 - Moved mode and running percentage states into grouped channels.
 - Cleaned stale channel metadata from upgraded object structures.
-- Removed Germany-specific default login country and phone codes.
 
 ### 0.2.10
 

@@ -42,8 +42,8 @@ class FairlandApiClient {
     constructor(options) {
         this.username = options.username;
         this.password = options.password;
-        this.countryCode = options.countryCode?.trim() || undefined;
-        this.phoneCode = options.phoneCode?.trim() || undefined;
+        this.countryCode = options.countryCode?.trim() || 'DE';
+        this.phoneCode = options.phoneCode?.trim() || '49';
         this.region = options.region ?? DEFAULT_REGION;
         this.timeoutMs = options.timeoutMs ?? 10_000;
     }
@@ -79,7 +79,7 @@ class FairlandApiClient {
                 }
             }
         }
-        throw lastError ?? lastAuthError ?? new FairlandApiClientAuthenticationError('Login failed');
+        throw lastAuthError ?? lastError ?? new FairlandApiClientAuthenticationError('Login failed');
     }
     async login() {
         const response = await this.fetchJson(`${this.baseUrl}/fyld-user-api/user/loginByPassword`, {
