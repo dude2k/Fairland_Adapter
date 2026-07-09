@@ -155,6 +155,12 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
 
+### 0.2.8
+
+- Added standard ioBroker package and integration tests.
+- Updated npm test scripts to run the standard `@iobroker/testing` checks.
+- Completed Russian and Ukrainian `io-package.json` news translations.
+
 ### 0.2.7
 
 - Fixed the generated ioBroker object hierarchy for device objects.

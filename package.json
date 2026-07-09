@@ -1,6 +1,6 @@
 {
   "name": "iobroker.fairland",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "ioBroker adapter for Fairland iGarden pool heat pumps and pool pumps",
   "keywords": [
     "ioBroker",
@@ -41,9 +41,9 @@
     "release": "release-script",
     "translate": "translate-adapter",
     "watch": "tsc -w -p tsconfig.json",
-    "test": "npm run build",
-    "test:package": "npm run build",
-    "test:integration": "npm run build",
+    "test": "npm run lint && npm run test:package",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
     "prepack": "npm run build"
   },
   "dependencies": {
