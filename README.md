@@ -159,6 +159,10 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
 
+### 0.2.13
+
+- Removed the reserved `ioBroker` keyword from adapter metadata.
+
 ### 0.2.12
 
 - Restored the required default iGarden login country and phone codes.
