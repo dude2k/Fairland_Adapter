@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.10": {
+        "en": "Remove unpublished 0.2.8 news and add an ioBroker deploy action marker for repository checks.",
+        "de": "Entfernt unveroeffentlichte 0.2.8-News und ergaenzt einen ioBroker-Deploy-Action-Marker fuer Repository-Pruefungen.",
+        "ru": "Удалена новость о неопубликованной версии 0.2.8 и добавлен маркер ioBroker deploy action для проверок репозитория.",
+        "pt": "Remove as noticias da versao 0.2.8 nao publicada e adiciona um marcador da acao de deploy ioBroker para verificacoes do repositorio.",
+        "nl": "Verwijdert nieuws voor de niet-gepubliceerde versie 0.2.8 en voegt een ioBroker deploy-actionmarkering toe voor repositorycontroles.",
+        "fr": "Supprime l actualite de la version 0.2.8 non publiee et ajoute un marqueur d action de deploiement ioBroker pour les controles du depot.",
+        "it": "Rimuove le notizie della versione 0.2.8 non pubblicata e aggiunge un marcatore dell azione di deploy ioBroker per i controlli del repository.",
+        "es": "Elimina las noticias de la version 0.2.8 no publicada y agrega un marcador de accion de despliegue ioBroker para las comprobaciones del repositorio.",
+        "pl": "Usuwa wiadomosc o nieopublikowanej wersji 0.2.8 i dodaje znacznik akcji wdrazania ioBroker dla kontroli repozytorium.",
+        "uk": "Вилучено новину про неопубліковану версію 0.2.8 і додано маркер ioBroker deploy action для перевірок репозиторію.",
+        "zh-cn": "移除未发布的 0.2.8 新闻，并添加用于仓库检查的 ioBroker 部署操作标记。"
+      },
       "0.2.9": {
         "en": "Replace the release deploy step to keep trusted npm publishing working with provenance.",
         "de": "Ersetzt den Release-Deploy-Schritt, damit vertrauenswuerdiges npm-Publishing mit Provenance weiter funktioniert.",
@@ -66,19 +79,6 @@
         "pl": "Zastepuje krok wdrazania wydania, aby zaufana publikacja npm z provenance nadal dzialala.",
         "uk": "Замінено крок розгортання релізу, щоб довірена публікація npm з provenance продовжувала працювати.",
         "zh-cn": "替换发布部署步骤，以保持带 provenance 的可信 npm 发布正常工作。"
-      },
-      "0.2.8": {
-        "en": "Add standard ioBroker package and integration tests and complete Russian and Ukrainian adapter news translations.",
-        "de": "Fuegt die standardmaessigen ioBroker-Paket- und Integrationstests hinzu und vervollstaendigt russische und ukrainische Adapter-News-Uebersetzungen.",
-        "ru": "Добавлены стандартные тесты пакета и интеграции ioBroker, а также завершены переводы новостей адаптера на русский и украинский языки.",
-        "pt": "Adiciona testes padrao de pacote e integracao do ioBroker e completa as traducoes das noticias do adaptador em russo e ucraniano.",
-        "nl": "Voegt standaard ioBroker pakket- en integratietests toe en voltooit Russische en Oekraiense vertalingen van adapternieuws.",
-        "fr": "Ajoute les tests standard de paquet et d integration ioBroker et complete les traductions russe et ukrainienne des actualites de l adaptateur.",
-        "it": "Aggiunge i test standard di pacchetto e integrazione ioBroker e completa le traduzioni russe e ucraine delle notizie dell adattatore.",
-        "es": "Agrega pruebas estandar de paquete e integracion de ioBroker y completa las traducciones rusas y ucranianas de las noticias del adaptador.",
-        "pl": "Dodaje standardowe testy pakietu i integracji ioBroker oraz uzupelnia rosyjskie i ukrainskie tlumaczenia wiadomosci adaptera.",
-        "uk": "Додано стандартні тести пакета та інтеграції ioBroker, а також завершено переклади новин адаптера російською й українською мовами.",
-        "zh-cn": "添加标准 ioBroker 包和集成测试，并完成适配器新闻的俄语和乌克兰语翻译。"
       },
       "0.2.7": {
         "en": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
