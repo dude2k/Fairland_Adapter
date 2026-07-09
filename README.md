@@ -155,6 +155,11 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
 
+### 0.2.10
+
+- Removed unpublished version 0.2.8 from adapter news.
+- Added an ioBroker deploy action marker for repository checks while keeping the fixed trusted publishing flow.
+
 ### 0.2.9
 
 - Replaced the release deploy step to avoid the broken npm 12 global publish path.
