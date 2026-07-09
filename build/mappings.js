@@ -105,7 +105,7 @@ exports.HEAT_PUMP_SENSOR_DEFINITIONS = [
         useDpScale: true,
     },
     {
-        id: 'runningPercentage',
+        id: 'performance.runningPercentage',
         dpId: '105',
         name: 'Running percentage',
         role: 'value',

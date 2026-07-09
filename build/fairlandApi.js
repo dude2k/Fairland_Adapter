@@ -42,8 +42,8 @@ class FairlandApiClient {
     constructor(options) {
         this.username = options.username;
         this.password = options.password;
-        this.countryCode = options.countryCode ?? 'DE';
-        this.phoneCode = options.phoneCode ?? '49';
+        this.countryCode = options.countryCode?.trim() || undefined;
+        this.phoneCode = options.phoneCode?.trim() || undefined;
         this.region = options.region ?? DEFAULT_REGION;
         this.timeoutMs = options.timeoutMs ?? 10_000;
     }
@@ -53,10 +53,14 @@ class FairlandApiClient {
     get currentUserId() {
         return this.userId;
     }
-    async detectRegion() {
+    async detectRegion(preferredRegion = this.region) {
         let lastAuthError;
         let lastError;
-        for (const region of Object.keys(exports.API_REGIONS)) {
+        const regions = Object.keys(exports.API_REGIONS);
+        const orderedRegions = preferredRegion && regions.includes(preferredRegion)
+            ? [preferredRegion, ...regions.filter(region => region !== preferredRegion)]
+            : regions;
+        for (const region of orderedRegions) {
             this.region = region;
             this.token = undefined;
             try {

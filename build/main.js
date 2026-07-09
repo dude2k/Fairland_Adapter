@@ -41,6 +41,7 @@ const WRITE_REFRESH_DELAY_MS = 5_000;
 const PENDING_WRITE_TIMEOUT_MS = 30_000;
 const DEFAULT_SCAN_INTERVAL_SECONDS = 30;
 const MIN_SCAN_INTERVAL_SECONDS = 10;
+const MAX_SCAN_INTERVAL_SECONDS = 3_600;
 class FairlandAdapter extends utils.Adapter {
     apiClient;
     courtyardId;
@@ -71,12 +72,14 @@ class FairlandAdapter extends utils.Adapter {
             return;
         }
         const scanIntervalSeconds = this.getScanIntervalSeconds(config);
+        const storedRegion = await this.getStoredRegion();
         this.apiClient = new fairlandApi_1.FairlandApiClient({
             username,
             password,
+            region: storedRegion,
         });
         try {
-            const region = await this.apiClient.detectRegion();
+            const region = await this.apiClient.detectRegion(storedRegion);
             this.log.info(`Connected to Fairland iGarden API region '${region}'.`);
             await this.setStateAsync('info.region', { val: region, ack: true });
             const courtyards = await this.apiClient.getCourtyards();
@@ -90,7 +93,7 @@ class FairlandAdapter extends utils.Adapter {
             this.ensuredObjects.add('devices');
             this.subscribeStates('devices.*');
             await this.pollDevices();
-            this.pollTimer = this.setInterval(() => void this.pollDevices(), scanIntervalSeconds * 1000);
+            this.scheduleNextPoll(scanIntervalSeconds);
             this.log.info(`Polling Fairland devices every ${scanIntervalSeconds} seconds.`);
         }
         catch (error) {
@@ -121,7 +124,7 @@ class FairlandAdapter extends utils.Adapter {
     onUnload(callback) {
         this.isUnloading = true;
         if (this.pollTimer) {
-            this.clearInterval(this.pollTimer);
+            this.clearTimeout(this.pollTimer);
             this.pollTimer = undefined;
         }
         if (this.writeRefreshTimer) {
@@ -152,6 +155,18 @@ class FairlandAdapter extends utils.Adapter {
         finally {
             this.isPolling = false;
         }
+    }
+    scheduleNextPoll(scanIntervalSeconds) {
+        if (this.isUnloading) {
+            return;
+        }
+        this.pollTimer = this.setTimeout(() => {
+            this.pollTimer = undefined;
+            if (this.isUnloading) {
+                return;
+            }
+            void this.pollDevices().finally(() => this.scheduleNextPoll(scanIntervalSeconds));
+        }, scanIntervalSeconds * 1000);
     }
     async loadDevices(courtyardId) {
         if (!this.apiClient) {
@@ -208,6 +223,7 @@ class FairlandAdapter extends utils.Adapter {
         if (this.config.createRawStates) {
             await this.ensureRawStates(device, dpMap);
         }
+        await this.removeObsoleteDeviceObjects(deviceBase);
     }
     async ensureHeatPumpStates(device, dpMap) {
         const deviceBase = this.deviceBase(device);
@@ -232,7 +248,7 @@ class FairlandAdapter extends utils.Adapter {
         }
         const modeDp = dpMap.get(mappings_1.HEAT_PUMP_HVAC_MODE_DP_ID);
         if (modeDp) {
-            const stateId = `${deviceBase}.mode`;
+            const stateId = `${deviceBase}.hvac.mode`;
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
@@ -279,7 +295,7 @@ class FairlandAdapter extends utils.Adapter {
         const presetDp = dpMap.get(mappings_1.HEAT_PUMP_PRESET_DP_ID);
         if (presetDp) {
             const options = this.parseHeatPresetOptions(presetDp);
-            const stateId = `${deviceBase}.presetMode`;
+            const stateId = `${deviceBase}.hvac.presetMode`;
             await this.ensureState(stateId, {
                 name: 'Preset mode',
                 type: 'string',
@@ -342,7 +358,7 @@ class FairlandAdapter extends utils.Adapter {
         const modeDp = dpMap.get(mappings_1.WATER_PUMP_MODE_DP_ID);
         if (modeDp) {
             const options = (0, dpUtils_1.parseEnumOptions)(modeDp, mappings_1.WATER_PUMP_MODE_FALLBACK, mappings_1.WATER_PUMP_MODE_LABEL_TO_OPTION);
-            const stateId = `${deviceBase}.mode`;
+            const stateId = `${deviceBase}.pump.mode`;
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
@@ -448,7 +464,7 @@ class FairlandAdapter extends utils.Adapter {
         if (dpMap.has(mappings_1.HEAT_PUMP_HVAC_MODE_DP_ID)) {
             const modeRaw = this.dpValue(device.id, dpMap, mappings_1.HEAT_PUMP_HVAC_MODE_DP_ID);
             const mode = isOn ? (mappings_1.HEAT_HVAC_MODES[Number(modeRaw)] ?? 'off') : 'off';
-            await this.setStateAsync(`${deviceBase}.mode`, { val: mode, ack: true });
+            await this.setStateAsync(`${deviceBase}.hvac.mode`, { val: mode, ack: true });
         }
         const targetDp = dpMap.get(mappings_1.HEAT_PUMP_TARGET_TEMP_DP_ID);
         if (targetDp) {
@@ -462,7 +478,7 @@ class FairlandAdapter extends utils.Adapter {
         if (presetDp) {
             const rawValue = this.dpValue(device.id, dpMap, mappings_1.HEAT_PUMP_PRESET_DP_ID);
             const options = this.parseHeatPresetOptions(presetDp);
-            await this.setStateAsync(`${deviceBase}.presetMode`, {
+            await this.setStateAsync(`${deviceBase}.hvac.presetMode`, {
                 val: options[Number(rawValue)] ?? null,
                 ack: true,
             });
@@ -490,7 +506,7 @@ class FairlandAdapter extends utils.Adapter {
         if (modeDp) {
             const rawValue = this.dpValue(device.id, dpMap, mappings_1.WATER_PUMP_MODE_DP_ID);
             const options = (0, dpUtils_1.parseEnumOptions)(modeDp, mappings_1.WATER_PUMP_MODE_FALLBACK, mappings_1.WATER_PUMP_MODE_LABEL_TO_OPTION);
-            await this.setStateAsync(`${deviceBase}.mode`, {
+            await this.setStateAsync(`${deviceBase}.pump.mode`, {
                 val: options[Number(rawValue)] ?? null,
                 ack: true,
             });
@@ -663,7 +679,15 @@ class FairlandAdapter extends utils.Adapter {
         if (!Number.isFinite(parsed)) {
             return DEFAULT_SCAN_INTERVAL_SECONDS;
         }
-        return Math.max(MIN_SCAN_INTERVAL_SECONDS, Math.round(parsed));
+        return Math.min(MAX_SCAN_INTERVAL_SECONDS, Math.max(MIN_SCAN_INTERVAL_SECONDS, Math.round(parsed)));
+    }
+    async getStoredRegion() {
+        const state = await this.getStateAsync('info.region');
+        const region = typeof state?.val === 'string' ? state.val : '';
+        return this.isApiRegion(region) ? region : undefined;
+    }
+    isApiRegion(region) {
+        return Object.prototype.hasOwnProperty.call(fairlandApi_1.API_REGIONS, region);
     }
     dpMap(device) {
         return new Map((device.dps ?? []).map(dp => [String(dp.dpId), { ...dp, dpId: String(dp.dpId) }]));
@@ -693,6 +717,19 @@ class FairlandAdapter extends utils.Adapter {
         });
         this.ensuredObjects.add(deviceBase);
     }
+    async removeObsoleteDeviceObjects(deviceBase) {
+        const obsoleteObjects = [`${deviceBase}.mode`, `${deviceBase}.presetMode`, `${deviceBase}.runningPercentage`];
+        for (const objectId of obsoleteObjects) {
+            if (this.ensuredObjects.has(objectId)) {
+                continue;
+            }
+            const object = await this.getObjectAsync(objectId);
+            if (object) {
+                await this.delObjectAsync(objectId, { recursive: true });
+                this.log.debug(`Removed obsolete Fairland object ${objectId}.`);
+            }
+        }
+    }
     async ensureState(stateId, common, native = {}) {
         await this.ensureParentChannels(stateId);
         await this.extendObjectAsync(stateId, {
@@ -713,17 +750,38 @@ class FairlandAdapter extends utils.Adapter {
             if (index === 1 && parts[0] === 'devices') {
                 continue;
             }
-            await this.extendObjectAsync(current, {
-                type: 'channel',
-                common: {
-                    name: this.channelName(parts[index]),
-                },
-                native: {},
-            });
+            await this.ensureChannel(current, this.channelName(parts[index]));
             this.ensuredObjects.add(current);
         }
     }
+    async ensureChannel(channelId, name) {
+        const existing = await this.getObjectAsync(channelId);
+        if (existing) {
+            await this.setObjectAsync(channelId, {
+                ...existing,
+                type: 'channel',
+                common: { name },
+                native: existing.native ?? {},
+            });
+            return;
+        }
+        await this.extendObjectAsync(channelId, {
+            type: 'channel',
+            common: { name },
+            native: {},
+        });
+    }
     channelName(part) {
+        const acronyms = {
+            dc: 'DC',
+            eev: 'EEV',
+            hvac: 'HVAC',
+            id: 'ID',
+        };
+        const acronym = acronyms[part.toLowerCase()];
+        if (acronym) {
+            return acronym;
+        }
         return part
             .replace(/([a-z])([A-Z])/g, '$1 $2')
             .replace(/[_-]+/g, ' ')

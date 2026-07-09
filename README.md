@@ -3,6 +3,8 @@
 Unofficial ioBroker adapter for Fairland pool heat pumps and pool pumps that
 use the Fairland **iGarden** cloud API.
 
+Manufacturer/product information: https://www.fairland.com.cn/
+
 This adapter talks directly to the iGarden cloud. It does not use Tuya and it
 does not support Fairland devices paired through the SmartPool app.
 
@@ -52,7 +54,8 @@ The instance configuration contains:
 
 - `iGarden account e-mail`: account name used in the iGarden app
 - `iGarden password`: account password
-- `Scan interval`: polling interval in seconds, minimum 10 seconds
+- `Scan interval`: polling interval in seconds, minimum 10 seconds, maximum
+  3600 seconds
 - `Courtyard ID`: optional. Leave empty to use the first courtyard returned by
   the cloud. If the account has several courtyards, the adapter logs all IDs.
 - `Create raw dpId states`: optional diagnostic states under
@@ -89,7 +92,6 @@ info.name
 info.category
 info.version
 power.switch
-mode
 ```
 
 Heat pump states include:
@@ -100,8 +102,10 @@ temperature.target
 temperature.outlet
 temperature.ambient
 power.current
-presetMode
+hvac.mode
+hvac.presetMode
 hvac.action
+performance.runningPercentage
 config.*
 diagnostic.*
 ```
@@ -115,7 +119,7 @@ pump.backwashDuration
 pump.backwashCountdown
 power.current
 energy.consumption
-mode
+pump.mode
 ```
 
 Writable states are mapped back to the correct Fairland `dpId`. The adapter keeps
@@ -154,6 +158,16 @@ The original project license notice is preserved in `LICENSE`, and additional
 third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
+
+### 0.2.11
+
+- Added an official Fairland manufacturer link to the README.
+- Enforced the configured scan interval range in adapter code.
+- Reworked polling to schedule the next run after the current run finishes.
+- Reused the last detected API region as startup hint.
+- Moved mode and running percentage states into grouped channels.
+- Cleaned stale channel metadata from upgraded object structures.
+- Removed Germany-specific default login country and phone codes.
 
 ### 0.2.10
 

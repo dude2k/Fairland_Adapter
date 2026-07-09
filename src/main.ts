@@ -1,6 +1,7 @@
 import * as utils from '@iobroker/adapter-core';
 
 import {
+    API_REGIONS,
     FairlandApiClient,
     FairlandApiClientAuthenticationError,
     FairlandApiClientCommunicationError,
@@ -44,6 +45,7 @@ import type {
     FairlandCourtyard,
     FairlandDataPoint,
     FairlandDevice,
+    ApiRegion,
     NativeConfig,
     PendingWrite,
     StateValue,
@@ -54,11 +56,12 @@ const WRITE_REFRESH_DELAY_MS = 5_000;
 const PENDING_WRITE_TIMEOUT_MS = 30_000;
 const DEFAULT_SCAN_INTERVAL_SECONDS = 30;
 const MIN_SCAN_INTERVAL_SECONDS = 10;
+const MAX_SCAN_INTERVAL_SECONDS = 3_600;
 
 class FairlandAdapter extends utils.Adapter {
     private apiClient: FairlandApiClient | undefined;
     private courtyardId: string | undefined;
-    private pollTimer: ioBroker.Interval | undefined;
+    private pollTimer: ioBroker.Timeout | undefined;
     private writeRefreshTimer: ioBroker.Timeout | undefined;
     private readonly pendingWrites = new Map<string, PendingWrite>();
     private readonly writableStates = new Map<string, WritableStateMapping>();
@@ -92,13 +95,15 @@ class FairlandAdapter extends utils.Adapter {
 
         const scanIntervalSeconds = this.getScanIntervalSeconds(config);
 
+        const storedRegion = await this.getStoredRegion();
         this.apiClient = new FairlandApiClient({
             username,
             password,
+            region: storedRegion,
         });
 
         try {
-            const region = await this.apiClient.detectRegion();
+            const region = await this.apiClient.detectRegion(storedRegion);
             this.log.info(`Connected to Fairland iGarden API region '${region}'.`);
             await this.setStateAsync('info.region', { val: region, ack: true });
 
@@ -115,7 +120,7 @@ class FairlandAdapter extends utils.Adapter {
 
             this.subscribeStates('devices.*');
             await this.pollDevices();
-            this.pollTimer = this.setInterval(() => void this.pollDevices(), scanIntervalSeconds * 1000);
+            this.scheduleNextPoll(scanIntervalSeconds);
             this.log.info(`Polling Fairland devices every ${scanIntervalSeconds} seconds.`);
         } catch (error) {
             await this.setConnectionState(false);
@@ -150,7 +155,7 @@ class FairlandAdapter extends utils.Adapter {
         this.isUnloading = true;
 
         if (this.pollTimer) {
-            this.clearInterval(this.pollTimer);
+            this.clearTimeout(this.pollTimer);
             this.pollTimer = undefined;
         }
         if (this.writeRefreshTimer) {
@@ -182,6 +187,21 @@ class FairlandAdapter extends utils.Adapter {
         } finally {
             this.isPolling = false;
         }
+    }
+
+    private scheduleNextPoll(scanIntervalSeconds: number): void {
+        if (this.isUnloading) {
+            return;
+        }
+
+        this.pollTimer = this.setTimeout(() => {
+            this.pollTimer = undefined;
+            if (this.isUnloading) {
+                return;
+            }
+
+            void this.pollDevices().finally(() => this.scheduleNextPoll(scanIntervalSeconds));
+        }, scanIntervalSeconds * 1000);
     }
 
     private async loadDevices(courtyardId: string): Promise<FairlandDevice[]> {
@@ -245,6 +265,8 @@ class FairlandAdapter extends utils.Adapter {
         if ((this.config as NativeConfig).createRawStates) {
             await this.ensureRawStates(device, dpMap);
         }
+
+        await this.removeObsoleteDeviceObjects(deviceBase);
     }
 
     private async ensureHeatPumpStates(device: FairlandDevice, dpMap: Map<string, FairlandDataPoint>): Promise<void> {
@@ -271,7 +293,7 @@ class FairlandAdapter extends utils.Adapter {
 
         const modeDp = dpMap.get(HEAT_PUMP_HVAC_MODE_DP_ID);
         if (modeDp) {
-            const stateId = `${deviceBase}.mode`;
+            const stateId = `${deviceBase}.hvac.mode`;
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
@@ -320,7 +342,7 @@ class FairlandAdapter extends utils.Adapter {
         const presetDp = dpMap.get(HEAT_PUMP_PRESET_DP_ID);
         if (presetDp) {
             const options = this.parseHeatPresetOptions(presetDp);
-            const stateId = `${deviceBase}.presetMode`;
+            const stateId = `${deviceBase}.hvac.presetMode`;
             await this.ensureState(stateId, {
                 name: 'Preset mode',
                 type: 'string',
@@ -387,7 +409,7 @@ class FairlandAdapter extends utils.Adapter {
         const modeDp = dpMap.get(WATER_PUMP_MODE_DP_ID);
         if (modeDp) {
             const options = parseEnumOptions(modeDp, WATER_PUMP_MODE_FALLBACK, WATER_PUMP_MODE_LABEL_TO_OPTION);
-            const stateId = `${deviceBase}.mode`;
+            const stateId = `${deviceBase}.pump.mode`;
             await this.ensureState(stateId, {
                 name: 'Mode',
                 type: 'string',
@@ -510,7 +532,7 @@ class FairlandAdapter extends utils.Adapter {
         if (dpMap.has(HEAT_PUMP_HVAC_MODE_DP_ID)) {
             const modeRaw = this.dpValue(device.id, dpMap, HEAT_PUMP_HVAC_MODE_DP_ID);
             const mode = isOn ? (HEAT_HVAC_MODES[Number(modeRaw)] ?? 'off') : 'off';
-            await this.setStateAsync(`${deviceBase}.mode`, { val: mode, ack: true });
+            await this.setStateAsync(`${deviceBase}.hvac.mode`, { val: mode, ack: true });
         }
 
         const targetDp = dpMap.get(HEAT_PUMP_TARGET_TEMP_DP_ID);
@@ -526,7 +548,7 @@ class FairlandAdapter extends utils.Adapter {
         if (presetDp) {
             const rawValue = this.dpValue(device.id, dpMap, HEAT_PUMP_PRESET_DP_ID);
             const options = this.parseHeatPresetOptions(presetDp);
-            await this.setStateAsync(`${deviceBase}.presetMode`, {
+            await this.setStateAsync(`${deviceBase}.hvac.presetMode`, {
                 val: options[Number(rawValue)] ?? null,
                 ack: true,
             });
@@ -559,7 +581,7 @@ class FairlandAdapter extends utils.Adapter {
         if (modeDp) {
             const rawValue = this.dpValue(device.id, dpMap, WATER_PUMP_MODE_DP_ID);
             const options = parseEnumOptions(modeDp, WATER_PUMP_MODE_FALLBACK, WATER_PUMP_MODE_LABEL_TO_OPTION);
-            await this.setStateAsync(`${deviceBase}.mode`, {
+            await this.setStateAsync(`${deviceBase}.pump.mode`, {
                 val: options[Number(rawValue)] ?? null,
                 ack: true,
             });
@@ -776,7 +798,17 @@ class FairlandAdapter extends utils.Adapter {
         if (!Number.isFinite(parsed)) {
             return DEFAULT_SCAN_INTERVAL_SECONDS;
         }
-        return Math.max(MIN_SCAN_INTERVAL_SECONDS, Math.round(parsed));
+        return Math.min(MAX_SCAN_INTERVAL_SECONDS, Math.max(MIN_SCAN_INTERVAL_SECONDS, Math.round(parsed)));
+    }
+
+    private async getStoredRegion(): Promise<ApiRegion | undefined> {
+        const state = await this.getStateAsync('info.region');
+        const region = typeof state?.val === 'string' ? state.val : '';
+        return this.isApiRegion(region) ? region : undefined;
+    }
+
+    private isApiRegion(region: string): region is ApiRegion {
+        return Object.prototype.hasOwnProperty.call(API_REGIONS, region);
     }
 
     private dpMap(device: FairlandDevice): Map<string, FairlandDataPoint> {
@@ -811,6 +843,22 @@ class FairlandAdapter extends utils.Adapter {
         this.ensuredObjects.add(deviceBase);
     }
 
+    private async removeObsoleteDeviceObjects(deviceBase: string): Promise<void> {
+        const obsoleteObjects = [`${deviceBase}.mode`, `${deviceBase}.presetMode`, `${deviceBase}.runningPercentage`];
+
+        for (const objectId of obsoleteObjects) {
+            if (this.ensuredObjects.has(objectId)) {
+                continue;
+            }
+
+            const object = await this.getObjectAsync(objectId);
+            if (object) {
+                await this.delObjectAsync(objectId, { recursive: true });
+                this.log.debug(`Removed obsolete Fairland object ${objectId}.`);
+            }
+        }
+    }
+
     private async ensureState(
         stateId: string,
         common: ioBroker.StateCommon,
@@ -841,18 +889,42 @@ class FairlandAdapter extends utils.Adapter {
                 continue;
             }
 
-            await this.extendObjectAsync(current, {
-                type: 'channel',
-                common: {
-                    name: this.channelName(parts[index]),
-                },
-                native: {},
-            });
+            await this.ensureChannel(current, this.channelName(parts[index]));
             this.ensuredObjects.add(current);
         }
     }
 
+    private async ensureChannel(channelId: string, name: string): Promise<void> {
+        const existing = await this.getObjectAsync(channelId);
+        if (existing) {
+            await this.setObjectAsync(channelId, {
+                ...existing,
+                type: 'channel',
+                common: { name },
+                native: existing.native ?? {},
+            });
+            return;
+        }
+
+        await this.extendObjectAsync(channelId, {
+            type: 'channel',
+            common: { name },
+            native: {},
+        });
+    }
+
     private channelName(part: string): string {
+        const acronyms: Record<string, string> = {
+            dc: 'DC',
+            eev: 'EEV',
+            hvac: 'HVAC',
+            id: 'ID',
+        };
+        const acronym = acronyms[part.toLowerCase()];
+        if (acronym) {
+            return acronym;
+        }
+
         return part
             .replace(/([a-z])([A-Z])/g, '$1 $2')
             .replace(/[_-]+/g, ' ')
