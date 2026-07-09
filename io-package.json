@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,96 +54,96 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.8": {
+        "en": "Add standard ioBroker package and integration tests and complete Russian and Ukrainian adapter news translations.",
+        "de": "Fuegt die standardmaessigen ioBroker-Paket- und Integrationstests hinzu und vervollstaendigt russische und ukrainische Adapter-News-Uebersetzungen.",
+        "ru": "Добавлены стандартные тесты пакета и интеграции ioBroker, а также завершены переводы новостей адаптера на русский и украинский языки.",
+        "pt": "Adiciona testes padrao de pacote e integracao do ioBroker e completa as traducoes das noticias do adaptador em russo e ucraniano.",
+        "nl": "Voegt standaard ioBroker pakket- en integratietests toe en voltooit Russische en Oekraiense vertalingen van adapternieuws.",
+        "fr": "Ajoute les tests standard de paquet et d integration ioBroker et complete les traductions russe et ukrainienne des actualites de l adaptateur.",
+        "it": "Aggiunge i test standard di pacchetto e integrazione ioBroker e completa le traduzioni russe e ucraine delle notizie dell adattatore.",
+        "es": "Agrega pruebas estandar de paquete e integracion de ioBroker y completa las traducciones rusas y ucranianas de las noticias del adaptador.",
+        "pl": "Dodaje standardowe testy pakietu i integracji ioBroker oraz uzupelnia rosyjskie i ukrainskie tlumaczenia wiadomosci adaptera.",
+        "uk": "Додано стандартні тести пакета та інтеграції ioBroker, а також завершено переклади новин адаптера російською й українською мовами.",
+        "zh-cn": "添加标准 ioBroker 包和集成测试，并完成适配器新闻的俄语和乌克兰语翻译。"
+      },
       "0.2.7": {
         "en": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
         "de": "Korrigiert die ioBroker-Objekthierarchie, verschiebt den Power-Schalter nach power.switch und nutzt gueltige Modus-Rollen.",
-        "ru": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
+        "ru": "Исправлена иерархия объектов ioBroker, переключатель питания перенесен в power.switch, а для режимов используются допустимые роли.",
         "pt": "Corrige a hierarquia de objetos ioBroker, move o interruptor de energia para power.switch e usa funcoes de modo validas.",
         "nl": "Corrigeert de ioBroker-objecthierarchie, verplaatst de powerschakelaar naar power.switch en gebruikt geldige modusrollen.",
         "fr": "Corrige la hierarchie des objets ioBroker, deplace l interrupteur d alimentation vers power.switch et utilise des roles de mode valides.",
         "it": "Corregge la gerarchia degli oggetti ioBroker, sposta l interruttore di alimentazione in power.switch e usa ruoli di modalita validi.",
         "es": "Corrige la jerarquia de objetos ioBroker, mueve el interruptor de energia a power.switch y usa roles de modo validos.",
         "pl": "Poprawia hierarchie obiektow ioBroker, przenosi przelacznik zasilania do power.switch i uzywa prawidlowych rol trybu.",
-        "uk": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
-        "zh-cn": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles."
+        "uk": "Виправлено ієрархію об'єктів ioBroker, перемикач живлення перенесено до power.switch, а для режимів використовуються допустимі ролі.",
+        "zh-cn": "修正 ioBroker 对象层级，将电源开关移至 power.switch，并使用有效的模式角色。"
       },
       "0.2.6": {
         "en": "Remove discouraged manual installation instructions from the README.",
         "de": "Entfernt nicht empfohlene manuelle Installationshinweise aus der README.",
-        "ru": "Remove discouraged manual installation instructions from the README.",
+        "ru": "Из README удалены не рекомендуемые инструкции по ручной установке.",
         "pt": "Remove instrucoes de instalacao manual nao recomendadas do README.",
         "nl": "Verwijdert afgeraden handmatige installatie-instructies uit de README.",
         "fr": "Supprime du README les instructions d installation manuelle deconseillees.",
         "it": "Rimuove dal README le istruzioni di installazione manuale sconsigliate.",
         "es": "Elimina del README las instrucciones desaconsejadas de instalacion manual.",
         "pl": "Usuwa z README niezalecane instrukcje recznej instalacji.",
-        "uk": "Remove discouraged manual installation instructions from the README.",
-        "zh-cn": "Remove discouraged manual installation instructions from the README."
+        "uk": "З README вилучено нерекомендовані інструкції з ручного встановлення.",
+        "zh-cn": "从 README 中移除不推荐的手动安装说明。"
       },
       "0.2.5": {
         "en": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
         "de": "Aktualisiert die Installationsdokumentation nach der npm-Veroeffentlichung und dokumentiert die beantragte ioBroker-Repository-Freigabe.",
-        "ru": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
+        "ru": "Обновлена документация по установке после публикации в npm и описано ожидающее одобрение репозитория ioBroker.",
         "pt": "Atualiza a documentacao de instalacao apos a publicacao no npm e documenta a aprovacao pendente do repositorio ioBroker.",
         "nl": "Werkt de installatiedocumentatie bij na publicatie op npm en documenteert de aangevraagde ioBroker-repositorygoedkeuring.",
         "fr": "Met a jour la documentation d installation apres la publication npm et documente l approbation ioBroker en attente.",
         "it": "Aggiorna la documentazione di installazione dopo la pubblicazione su npm e documenta l approvazione in sospeso del repository ioBroker.",
         "es": "Actualiza la documentacion de instalacion tras la publicacion en npm y documenta la aprobacion pendiente del repositorio ioBroker.",
         "pl": "Aktualizuje dokumentacje instalacji po publikacji w npm i dokumentuje oczekujace zatwierdzenie repozytorium ioBroker.",
-        "uk": "Update installation documentation after npm publication and document the pending ioBroker repository approval.",
-        "zh-cn": "Update installation documentation after npm publication and document the pending ioBroker repository approval."
+        "uk": "Оновлено документацію зі встановлення після публікації в npm і задокументовано очікуване схвалення репозиторію ioBroker.",
+        "zh-cn": "npm 发布后更新安装文档，并记录待审批的 ioBroker 仓库收录。"
       },
       "0.2.4": {
         "en": "Optimize the adapter icon image size.",
         "de": "Optimiert die Bildgroesse des Adapter-Icons.",
-        "ru": "Optimize the adapter icon image size.",
+        "ru": "Оптимизирован размер изображения значка адаптера.",
         "pt": "Otimiza o tamanho da imagem do icone do adaptador.",
         "nl": "Optimaliseert de afbeeldingsgrootte van het adapterpictogram.",
         "fr": "Optimise la taille de l image de l icone de l adaptateur.",
         "it": "Ottimizza la dimensione dell immagine dell icona dell adattatore.",
         "es": "Optimiza el tamano de imagen del icono del adaptador.",
         "pl": "Optymalizuje rozmiar obrazu ikony adaptera.",
-        "uk": "Optimize the adapter icon image size.",
-        "zh-cn": "Optimize the adapter icon image size."
+        "uk": "Оптимізовано розмір зображення іконки адаптера.",
+        "zh-cn": "优化适配器图标图片大小。"
       },
       "0.2.3": {
         "en": "Convert admin i18n files to short format, add VS Code schema settings, and add the release manual review plugin.",
         "de": "Konvertiert Admin-i18n-Dateien ins Kurzformat, fuegt VS-Code-Schema-Einstellungen hinzu und ergaenzt das Release-Manual-Review-Plugin.",
-        "ru": "Convert admin i18n files to short format, add VS Code schema settings, and add the release manual review plugin.",
+        "ru": "Файлы i18n админки переведены в короткий формат, добавлены схемы VS Code и плагин ручной проверки релиза.",
         "pt": "Converte os arquivos i18n do admin para o formato curto, adiciona configuracoes de esquema do VS Code e adiciona o plugin de revisao manual de release.",
         "nl": "Zet admin-i18n-bestanden om naar kort formaat, voegt VS Code-schema-instellingen toe en voegt de release manual review-plugin toe.",
         "fr": "Convertit les fichiers i18n admin au format court, ajoute les parametres de schema VS Code et ajoute le plugin de revue manuelle de release.",
         "it": "Converte i file i18n admin nel formato breve, aggiunge le impostazioni schema VS Code e aggiunge il plugin di revisione manuale release.",
         "es": "Convierte los archivos i18n de admin al formato corto, agrega ajustes de esquema de VS Code y agrega el plugin de revision manual de release.",
         "pl": "Konwertuje pliki i18n admina do krotkiego formatu, dodaje ustawienia schematow VS Code i dodaje plugin recznego przegladu wydania.",
-        "uk": "Convert admin i18n files to short format, add VS Code schema settings, and add the release manual review plugin.",
-        "zh-cn": "Convert admin i18n files to short format, add VS Code schema settings, and add the release manual review plugin."
+        "uk": "Файли i18n адмінки переведено в короткий формат, додано схеми VS Code і плагін ручної перевірки релізу.",
+        "zh-cn": "将管理界面 i18n 文件转换为短格式，添加 VS Code 架构设置，并加入发布手动审核插件。"
       },
       "0.2.2": {
         "en": "Remove unpublished historical versions from adapter news.",
         "de": "Entfernt unveroeffentlichte historische Versionen aus den Adapter-News.",
-        "ru": "Remove unpublished historical versions from adapter news.",
+        "ru": "Из новостей адаптера удалены неопубликованные исторические версии.",
         "pt": "Remove versoes historicas nao publicadas das noticias do adaptador.",
         "nl": "Verwijdert niet-gepubliceerde historische versies uit het adapternieuws.",
         "fr": "Supprime les versions historiques non publiees des actualites de l adaptateur.",
         "it": "Rimuove dalle notizie dell adattatore le versioni storiche non pubblicate.",
         "es": "Elimina de las noticias del adaptador las versiones historicas no publicadas.",
         "pl": "Usuwa nieopublikowane wersje historyczne z wiadomosci adaptera.",
-        "uk": "Remove unpublished historical versions from adapter news.",
-        "zh-cn": "Remove unpublished historical versions from adapter news."
-      },
-      "0.2.1": {
-        "en": "Skip npm deployment until publishing is explicitly enabled for the repository.",
-        "de": "Ueberspringt das npm-Deployment, bis die Veroeffentlichung explizit fuer das Repository aktiviert ist.",
-        "ru": "Skip npm deployment until publishing is explicitly enabled for the repository.",
-        "pt": "Ignora o deploy npm ate que a publicacao seja ativada explicitamente para o repositorio.",
-        "nl": "Slaat npm-deployment over totdat publiceren expliciet voor de repository is ingeschakeld.",
-        "fr": "Ignore le deploiement npm tant que la publication n'est pas explicitement activee pour le depot.",
-        "it": "Salta il deployment npm finche la pubblicazione non e abilitata esplicitamente per il repository.",
-        "es": "Omite el despliegue npm hasta que la publicacion este habilitada explicitamente para el repositorio.",
-        "pl": "Pomija wdrozenie npm, dopoki publikowanie nie zostanie jawnie wlaczone dla repozytorium.",
-        "uk": "Skip npm deployment until publishing is explicitly enabled for the repository.",
-        "zh-cn": "Skip npm deployment until publishing is explicitly enabled for the repository."
+        "uk": "З новин адаптера вилучено неопубліковані історичні версії.",
+        "zh-cn": "从适配器新闻中移除未发布的历史版本。"
       }
     },
     "dependencies": [
