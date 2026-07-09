@@ -55,8 +55,8 @@ export class FairlandApiClientAuthenticationError extends FairlandApiClientError
 export class FairlandApiClient {
     private readonly username: string;
     private readonly password: string;
-    private readonly countryCode: string;
-    private readonly phoneCode: string;
+    private readonly countryCode: string | undefined;
+    private readonly phoneCode: string | undefined;
     private readonly timeoutMs: number;
     private token: string | undefined;
     private userId: string | undefined;
@@ -66,8 +66,8 @@ export class FairlandApiClient {
     public constructor(options: ClientOptions) {
         this.username = options.username;
         this.password = options.password;
-        this.countryCode = options.countryCode ?? 'DE';
-        this.phoneCode = options.phoneCode ?? '49';
+        this.countryCode = options.countryCode?.trim() || undefined;
+        this.phoneCode = options.phoneCode?.trim() || undefined;
         this.region = options.region ?? DEFAULT_REGION;
         this.timeoutMs = options.timeoutMs ?? 10_000;
     }
@@ -79,11 +79,16 @@ export class FairlandApiClient {
         return this.userId;
     }
 
-    public async detectRegion(): Promise<ApiRegion> {
+    public async detectRegion(preferredRegion: ApiRegion | undefined = this.region): Promise<ApiRegion> {
         let lastAuthError: FairlandApiClientAuthenticationError | undefined;
         let lastError: FairlandApiClientError | undefined;
+        const regions = Object.keys(API_REGIONS) as ApiRegion[];
+        const orderedRegions =
+            preferredRegion && regions.includes(preferredRegion)
+                ? [preferredRegion, ...regions.filter(region => region !== preferredRegion)]
+                : regions;
 
-        for (const region of Object.keys(API_REGIONS) as ApiRegion[]) {
+        for (const region of orderedRegions) {
             this.region = region;
             this.token = undefined;
 

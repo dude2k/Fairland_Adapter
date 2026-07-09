@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -32,6 +32,7 @@
       "dude2k"
     ],
     "keywords": [
+      "ioBroker",
       "fairland",
       "igarden",
       "pool",
@@ -54,6 +55,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.11": {
+        "en": "Improve object structure, polling, scan limits, region reuse, README links, and neutral login defaults.",
+        "de": "Verbessert Objektstruktur, Polling, Scan-Grenzen, Regionswiederverwendung, README-Links und neutrale Login-Defaults.",
+        "ru": "Uluchshena struktura obektov, polling, granitsy skanirovaniya, povtornoe ispolzovanie regiona, ssylki README i neitralnye login-defaulty.",
+        "pt": "Melhora a estrutura de objetos, polling, limites de varredura, reutilizacao da regiao, links do README e padroes neutros de login.",
+        "nl": "Verbetert objectstructuur, polling, scanlimieten, hergebruik van regio, README-links en neutrale loginstandaarden.",
+        "fr": "Ameliore la structure des objets, le polling, les limites de scan, la reutilisation de region, les liens README et les valeurs de connexion neutres.",
+        "it": "Migliora struttura oggetti, polling, limiti di scansione, riuso della regione, link README e default di accesso neutrali.",
+        "es": "Mejora la estructura de objetos, el sondeo, los limites de escaneo, la reutilizacion de region, los enlaces README y los valores de inicio neutros.",
+        "pl": "Ulepsza strukture obiektow, odpytywanie, limity skanowania, ponowne uzycie regionu, linki README i neutralne ustawienia logowania.",
+        "uk": "Polipsheno strukturu obiektiv, opytuvannia, mezhi skanuvannia, povtorne vykorystannia rehionu, posylannia README ta neitralni login-defaulty.",
+        "zh-cn": "改进对象结构、轮询、扫描限制、区域复用、README 链接和中性的登录默认值。"
+      },
       "0.2.10": {
         "en": "Remove unpublished 0.2.8 news and add an ioBroker deploy action marker for repository checks.",
         "de": "Entfernt unveroeffentlichte 0.2.8-News und ergaenzt einen ioBroker-Deploy-Action-Marker fuer Repository-Pruefungen.",
@@ -131,19 +145,6 @@
         "pl": "Optymalizuje rozmiar obrazu ikony adaptera.",
         "uk": "Оптимізовано розмір зображення іконки адаптера.",
         "zh-cn": "优化适配器图标图片大小。"
-      },
-      "0.2.3": {
-        "en": "Convert admin i18n files to short format, add VS Code schema settings, and add the release manual review plugin.",
-        "de": "Konvertiert Admin-i18n-Dateien ins Kurzformat, fuegt VS-Code-Schema-Einstellungen hinzu und ergaenzt das Release-Manual-Review-Plugin.",
-        "ru": "Файлы i18n админки переведены в короткий формат, добавлены схемы VS Code и плагин ручной проверки релиза.",
-        "pt": "Converte os arquivos i18n do admin para o formato curto, adiciona configuracoes de esquema do VS Code e adiciona o plugin de revisao manual de release.",
-        "nl": "Zet admin-i18n-bestanden om naar kort formaat, voegt VS Code-schema-instellingen toe en voegt de release manual review-plugin toe.",
-        "fr": "Convertit les fichiers i18n admin au format court, ajoute les parametres de schema VS Code et ajoute le plugin de revue manuelle de release.",
-        "it": "Converte i file i18n admin nel formato breve, aggiunge le impostazioni schema VS Code e aggiunge il plugin di revisione manuale release.",
-        "es": "Convierte los archivos i18n de admin al formato corto, agrega ajustes de esquema de VS Code y agrega el plugin de revision manual de release.",
-        "pl": "Konwertuje pliki i18n admina do krotkiego formatu, dodaje ustawienia schematow VS Code i dodaje plugin recznego przegladu wydania.",
-        "uk": "Файли i18n адмінки переведено в короткий формат, додано схеми VS Code і плагін ручної перевірки релізу.",
-        "zh-cn": "将管理界面 i18n 文件转换为短格式，添加 VS Code 架构设置，并加入发布手动审核插件。"
       }
     },
     "dependencies": [

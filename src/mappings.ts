@@ -111,7 +111,7 @@ export const HEAT_PUMP_SENSOR_DEFINITIONS: DpStateDefinition[] = [
         useDpScale: true,
     },
     {
-        id: 'runningPercentage',
+        id: 'performance.runningPercentage',
         dpId: '105',
         name: 'Running percentage',
         role: 'value',
