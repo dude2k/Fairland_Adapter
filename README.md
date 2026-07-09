@@ -155,6 +155,11 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
 
+### 0.2.9
+
+- Replaced the release deploy step to avoid the broken npm 12 global publish path.
+- Kept npm trusted publishing with provenance enabled for release tags.
+
 ### 0.2.8
 
 - Added standard ioBroker package and integration tests.
