@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.9": {
+        "en": "Replace the release deploy step to keep trusted npm publishing working with provenance.",
+        "de": "Ersetzt den Release-Deploy-Schritt, damit vertrauenswuerdiges npm-Publishing mit Provenance weiter funktioniert.",
+        "ru": "Заменен шаг развертывания релиза, чтобы доверенная публикация npm с provenance продолжала работать.",
+        "pt": "Substitui a etapa de deploy de release para manter a publicacao npm confiavel com provenance funcionando.",
+        "nl": "Vervangt de release-deploystap zodat vertrouwd npm-publiceren met provenance blijft werken.",
+        "fr": "Remplace l etape de deploiement de release afin de conserver la publication npm de confiance avec provenance.",
+        "it": "Sostituisce il passaggio di deploy della release per mantenere funzionante la pubblicazione npm attendibile con provenance.",
+        "es": "Reemplaza el paso de despliegue de release para mantener funcionando la publicacion npm confiable con provenance.",
+        "pl": "Zastepuje krok wdrazania wydania, aby zaufana publikacja npm z provenance nadal dzialala.",
+        "uk": "Замінено крок розгортання релізу, щоб довірена публікація npm з provenance продовжувала працювати.",
+        "zh-cn": "替换发布部署步骤，以保持带 provenance 的可信 npm 发布正常工作。"
+      },
       "0.2.8": {
         "en": "Add standard ioBroker package and integration tests and complete Russian and Ukrainian adapter news translations.",
         "de": "Fuegt die standardmaessigen ioBroker-Paket- und Integrationstests hinzu und vervollstaendigt russische und ukrainische Adapter-News-Uebersetzungen.",
@@ -131,19 +144,6 @@
         "pl": "Konwertuje pliki i18n admina do krotkiego formatu, dodaje ustawienia schematow VS Code i dodaje plugin recznego przegladu wydania.",
         "uk": "Файли i18n адмінки переведено в короткий формат, додано схеми VS Code і плагін ручної перевірки релізу.",
         "zh-cn": "将管理界面 i18n 文件转换为短格式，添加 VS Code 架构设置，并加入发布手动审核插件。"
-      },
-      "0.2.2": {
-        "en": "Remove unpublished historical versions from adapter news.",
-        "de": "Entfernt unveroeffentlichte historische Versionen aus den Adapter-News.",
-        "ru": "Из новостей адаптера удалены неопубликованные исторические версии.",
-        "pt": "Remove versoes historicas nao publicadas das noticias do adaptador.",
-        "nl": "Verwijdert niet-gepubliceerde historische versies uit het adapternieuws.",
-        "fr": "Supprime les versions historiques non publiees des actualites de l adaptateur.",
-        "it": "Rimuove dalle notizie dell adattatore le versioni storiche non pubblicate.",
-        "es": "Elimina de las noticias del adaptador las versiones historicas no publicadas.",
-        "pl": "Usuwa nieopublikowane wersje historyczne z wiadomosci adaptera.",
-        "uk": "З новин адаптера вилучено неопубліковані історичні версії.",
-        "zh-cn": "从适配器新闻中移除未发布的历史版本。"
       }
     },
     "dependencies": [
