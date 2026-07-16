@@ -5,5 +5,21 @@
     "Leave empty to use the first courtyard returned by the iGarden cloud. If you have several courtyards, set the desired ID from the adapter log.": "Dejelo vacio para usar el primer patio devuelto por la nube iGarden. Si tiene varios patios, introduzca el ID deseado desde el registro del adaptador.",
     "Scan interval in seconds": "Intervalo de consulta en segundos",
     "iGarden account e-mail": "Correo electronico de la cuenta iGarden",
-    "iGarden password": "Contrasena de iGarden"
+    "iGarden password": "Contrasena de iGarden",
+    "Login country": "Login country",
+    "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.": "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.",
+    "Automatic": "Automatic",
+    "Austria (+43)": "Austria (+43)",
+    "Switzerland (+41)": "Switzerland (+41)",
+    "China (+86)": "China (+86)",
+    "Germany (+49)": "Germany (+49)",
+    "Spain (+34)": "Spain (+34)",
+    "France (+33)": "France (+33)",
+    "United Kingdom (+44)": "United Kingdom (+44)",
+    "Hong Kong (+852)": "Hong Kong (+852)",
+    "Italy (+39)": "Italy (+39)",
+    "Netherlands (+31)": "Netherlands (+31)",
+    "Poland (+48)": "Poland (+48)",
+    "Portugal (+351)": "Portugal (+351)",
+    "United States (+1)": "United States (+1)"
 }

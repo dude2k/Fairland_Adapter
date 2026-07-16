@@ -54,6 +54,8 @@ The instance configuration contains:
 
 - `iGarden account e-mail`: account name used in the iGarden app
 - `iGarden password`: account password
+- `Login country`: optional country code used for iGarden login. Leave
+  `Automatic` if your account works without an explicit country code.
 - `Scan interval`: polling interval in seconds, minimum 10 seconds, maximum
   3600 seconds
 - `Courtyard ID`: optional. Leave empty to use the first courtyard returned by
@@ -158,6 +160,12 @@ The original project license notice is preserved in `LICENSE`, and additional
 third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
+
+### 0.2.14
+
+- Fixed the water pump energy consumption state role.
+- Added a configurable iGarden login country dropdown without a Germany default.
+- Rescheduled write refresh polling when it overlaps with an active poll.
 
 ### 0.2.13
 

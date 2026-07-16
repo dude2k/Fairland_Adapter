@@ -390,7 +390,7 @@ exports.WATER_PUMP_SENSOR_DEFINITIONS = [
         id: 'energy.consumption',
         dpId: '109',
         name: 'Energy consumption',
-        role: 'value.energy.consumption',
+        role: 'value.energy.consumed',
         type: 'number',
         unit: 'kWh',
         useDpScale: true,
