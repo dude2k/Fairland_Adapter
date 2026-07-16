@@ -13,6 +13,12 @@ export interface NativeConfig {
     createRawStates?: boolean;
 }
 
+export interface CourtyardOptionRequest {
+    accountName?: string;
+    password?: string;
+    loginCountry?: string;
+}
+
 export interface FairlandCourtyard {
     id: string;
     name: string;

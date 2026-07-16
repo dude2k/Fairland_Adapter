@@ -41,6 +41,7 @@ import {
     WATER_PUMP_SENSOR_DEFINITIONS,
 } from './mappings';
 import type {
+    CourtyardOptionRequest,
     DpStateDefinition,
     FairlandCourtyard,
     FairlandDataPoint,
@@ -93,6 +94,7 @@ class FairlandAdapter extends utils.Adapter {
         });
 
         this.on('ready', this.onReady.bind(this));
+        this.on('message', this.onMessage.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
@@ -166,6 +168,25 @@ class FairlandAdapter extends utils.Adapter {
             await this.handleWritableState(localId, mapping, state.val);
         } catch (error) {
             this.log.error(`Failed to write ${localId}: ${this.errorMessage(error)}`);
+        }
+    }
+
+    private async onMessage(message: ioBroker.Message): Promise<void> {
+        if (!message.callback) {
+            return;
+        }
+
+        if (message.command !== 'getCourtyards') {
+            this.sendTo(message.from, message.command, [], message.callback);
+            return;
+        }
+
+        try {
+            const options = await this.getCourtyardOptions(message.message as CourtyardOptionRequest);
+            this.sendTo(message.from, message.command, options, message.callback);
+        } catch (error) {
+            this.log.warn(`Could not load courtyard options: ${this.errorMessage(error)}`);
+            this.sendTo(message.from, message.command, this.defaultCourtyardOptions(), message.callback);
         }
     }
 
@@ -247,6 +268,41 @@ class FairlandAdapter extends utils.Adapter {
         }
 
         return updatedDevices;
+    }
+
+    private async getCourtyardOptions(
+        request: CourtyardOptionRequest,
+    ): Promise<Array<{ label: string; value: string }>> {
+        const config = this.config as NativeConfig;
+        const username = String(request.accountName ?? config.accountName ?? '').trim();
+        const password = String(request.password ?? config.password ?? '');
+        const loginCountry = String(request.loginCountry ?? config.loginCountry ?? '').trim();
+
+        if (!username || !password) {
+            return this.defaultCourtyardOptions();
+        }
+
+        const client = new FairlandApiClient({
+            username,
+            password,
+            countryCode: this.getLoginCountry({ loginCountry }),
+            phoneCode: this.getLoginPhoneCode({ loginCountry }),
+            region: await this.getStoredRegion(),
+        });
+        await client.detectRegion();
+        const courtyards = await client.getCourtyards();
+
+        return [
+            ...this.defaultCourtyardOptions(),
+            ...courtyards.map(courtyard => ({
+                label: `${courtyard.name} (${courtyard.id})`,
+                value: courtyard.id,
+            })),
+        ];
+    }
+
+    private defaultCourtyardOptions(): Array<{ label: string; value: string }> {
+        return [{ label: 'Automatic', value: '' }];
     }
 
     private async ensureDeviceObjects(device: FairlandDevice): Promise<void> {

@@ -75,6 +75,7 @@ class FairlandAdapter extends utils.Adapter {
             name: 'fairland',
         });
         this.on('ready', this.onReady.bind(this));
+        this.on('message', this.onMessage.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
@@ -137,6 +138,23 @@ class FairlandAdapter extends utils.Adapter {
         }
         catch (error) {
             this.log.error(`Failed to write ${localId}: ${this.errorMessage(error)}`);
+        }
+    }
+    async onMessage(message) {
+        if (!message.callback) {
+            return;
+        }
+        if (message.command !== 'getCourtyards') {
+            this.sendTo(message.from, message.command, [], message.callback);
+            return;
+        }
+        try {
+            const options = await this.getCourtyardOptions(message.message);
+            this.sendTo(message.from, message.command, options, message.callback);
+        }
+        catch (error) {
+            this.log.warn(`Could not load courtyard options: ${this.errorMessage(error)}`);
+            this.sendTo(message.from, message.command, this.defaultCourtyardOptions(), message.callback);
         }
     }
     onUnload(callback) {
@@ -207,6 +225,34 @@ class FairlandAdapter extends utils.Adapter {
             }
         }
         return updatedDevices;
+    }
+    async getCourtyardOptions(request) {
+        const config = this.config;
+        const username = String(request.accountName ?? config.accountName ?? '').trim();
+        const password = String(request.password ?? config.password ?? '');
+        const loginCountry = String(request.loginCountry ?? config.loginCountry ?? '').trim();
+        if (!username || !password) {
+            return this.defaultCourtyardOptions();
+        }
+        const client = new fairlandApi_1.FairlandApiClient({
+            username,
+            password,
+            countryCode: this.getLoginCountry({ loginCountry }),
+            phoneCode: this.getLoginPhoneCode({ loginCountry }),
+            region: await this.getStoredRegion(),
+        });
+        await client.detectRegion();
+        const courtyards = await client.getCourtyards();
+        return [
+            ...this.defaultCourtyardOptions(),
+            ...courtyards.map(courtyard => ({
+                label: `${courtyard.name} (${courtyard.id})`,
+                value: courtyard.id,
+            })),
+        ];
+    }
+    defaultCourtyardOptions() {
+        return [{ label: 'Automatic', value: '' }];
     }
     async ensureDeviceObjects(device) {
         const deviceBase = this.deviceBase(device);
