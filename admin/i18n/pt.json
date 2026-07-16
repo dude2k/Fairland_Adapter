@@ -5,9 +5,9 @@
     "Scan interval in seconds": "Intervalo de consulta em segundos",
     "iGarden account e-mail": "E-mail da conta iGarden",
     "iGarden password": "Senha do iGarden",
-    "Login country": "Login country",
-    "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.": "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.",
-    "Automatic": "Automatic",
+    "Login country": "Pais de login",
+    "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.": "Selecione o codigo do pais usado para login no iGarden. Deixe Automatico se sua conta funcionar sem codigo de pais.",
+    "Automatic": "Automatico",
     "Austria (+43)": "Austria (+43)",
     "Switzerland (+41)": "Switzerland (+41)",
     "China (+86)": "China (+86)",
@@ -21,5 +21,5 @@
     "Poland (+48)": "Poland (+48)",
     "Portugal (+351)": "Portugal (+351)",
     "United States (+1)": "United States (+1)",
-    "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud.": "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud."
+    "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud.": "Selecione um patio da nuvem iGarden. Deixe Automatico para usar o primeiro patio retornado pela nuvem."
 }
