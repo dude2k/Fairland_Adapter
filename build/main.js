@@ -42,6 +42,21 @@ const PENDING_WRITE_TIMEOUT_MS = 30_000;
 const DEFAULT_SCAN_INTERVAL_SECONDS = 30;
 const MIN_SCAN_INTERVAL_SECONDS = 10;
 const MAX_SCAN_INTERVAL_SECONDS = 3_600;
+const LOGIN_COUNTRY_PHONE_CODES = {
+    AT: '43',
+    CH: '41',
+    CN: '86',
+    DE: '49',
+    ES: '34',
+    FR: '33',
+    GB: '44',
+    HK: '852',
+    IT: '39',
+    NL: '31',
+    PL: '48',
+    PT: '351',
+    US: '1',
+};
 class FairlandAdapter extends utils.Adapter {
     apiClient;
     courtyardId;
@@ -53,6 +68,7 @@ class FairlandAdapter extends utils.Adapter {
     deviceObjectIds = new Map();
     isUnloading = false;
     isPolling = false;
+    writeRefreshRequested = false;
     constructor(options = {}) {
         super({
             ...options,
@@ -76,6 +92,8 @@ class FairlandAdapter extends utils.Adapter {
         this.apiClient = new fairlandApi_1.FairlandApiClient({
             username,
             password,
+            countryCode: this.getLoginCountry(config),
+            phoneCode: this.getLoginPhoneCode(config),
             region: storedRegion,
         });
         try {
@@ -154,6 +172,10 @@ class FairlandAdapter extends utils.Adapter {
         }
         finally {
             this.isPolling = false;
+            if (this.writeRefreshRequested) {
+                this.writeRefreshRequested = false;
+                this.scheduleWriteRefresh();
+            }
         }
     }
     scheduleNextPoll(scanIntervalSeconds) {
@@ -653,6 +675,10 @@ class FairlandAdapter extends utils.Adapter {
         }
         this.writeRefreshTimer = this.setTimeout(() => {
             this.writeRefreshTimer = undefined;
+            if (this.isPolling) {
+                this.writeRefreshRequested = true;
+                return;
+            }
             void this.pollDevices();
         }, WRITE_REFRESH_DELAY_MS);
     }
@@ -680,6 +706,16 @@ class FairlandAdapter extends utils.Adapter {
             return DEFAULT_SCAN_INTERVAL_SECONDS;
         }
         return Math.min(MAX_SCAN_INTERVAL_SECONDS, Math.max(MIN_SCAN_INTERVAL_SECONDS, Math.round(parsed)));
+    }
+    getLoginCountry(config) {
+        const country = String(config.loginCountry ?? '')
+            .trim()
+            .toUpperCase();
+        return country && LOGIN_COUNTRY_PHONE_CODES[country] ? country : undefined;
+    }
+    getLoginPhoneCode(config) {
+        const country = this.getLoginCountry(config);
+        return country ? LOGIN_COUNTRY_PHONE_CODES[country] : undefined;
     }
     async getStoredRegion() {
         const state = await this.getStateAsync('info.region');

@@ -42,8 +42,8 @@ class FairlandApiClient {
     constructor(options) {
         this.username = options.username;
         this.password = options.password;
-        this.countryCode = options.countryCode?.trim() || 'DE';
-        this.phoneCode = options.phoneCode?.trim() || '49';
+        this.countryCode = options.countryCode?.trim() || undefined;
+        this.phoneCode = options.phoneCode?.trim() || undefined;
         this.region = options.region ?? DEFAULT_REGION;
         this.timeoutMs = options.timeoutMs ?? 10_000;
     }
@@ -86,10 +86,10 @@ class FairlandApiClient {
             method: 'POST',
             headers: this.publicHeaders(),
             body: JSON.stringify({
-                phoneCode: this.phoneCode,
+                ...(this.phoneCode ? { phoneCode: this.phoneCode } : {}),
                 accountName: this.username,
                 password: this.password,
-                countryCode: this.countryCode,
+                ...(this.countryCode ? { countryCode: this.countryCode } : {}),
                 randStr: '',
                 ticket: '',
             }),

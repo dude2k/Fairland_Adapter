@@ -21,6 +21,76 @@
       "lg": 6,
       "xl": 6
     },
+    "loginCountry": {
+      "type": "select",
+      "label": "Login country",
+      "help": "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.",
+      "options": [
+        {
+          "label": "Automatic",
+          "value": ""
+        },
+        {
+          "label": "Austria (+43)",
+          "value": "AT"
+        },
+        {
+          "label": "Switzerland (+41)",
+          "value": "CH"
+        },
+        {
+          "label": "China (+86)",
+          "value": "CN"
+        },
+        {
+          "label": "Germany (+49)",
+          "value": "DE"
+        },
+        {
+          "label": "Spain (+34)",
+          "value": "ES"
+        },
+        {
+          "label": "France (+33)",
+          "value": "FR"
+        },
+        {
+          "label": "United Kingdom (+44)",
+          "value": "GB"
+        },
+        {
+          "label": "Hong Kong (+852)",
+          "value": "HK"
+        },
+        {
+          "label": "Italy (+39)",
+          "value": "IT"
+        },
+        {
+          "label": "Netherlands (+31)",
+          "value": "NL"
+        },
+        {
+          "label": "Poland (+48)",
+          "value": "PL"
+        },
+        {
+          "label": "Portugal (+351)",
+          "value": "PT"
+        },
+        {
+          "label": "United States (+1)",
+          "value": "US"
+        }
+      ],
+      "default": "",
+      "xs": 12,
+      "sm": 6,
+      "md": 6,
+      "lg": 6,
+      "xl": 6,
+      "newLine": true
+    },
     "scanInterval": {
       "type": "number",
       "label": "Scan interval in seconds",

@@ -7,6 +7,7 @@ export type StateValue = string | number | boolean | null;
 export interface NativeConfig {
     accountName?: string;
     password?: string;
+    loginCountry?: string;
     scanInterval?: number | string;
     courtyardId?: string;
     createRawStates?: boolean;

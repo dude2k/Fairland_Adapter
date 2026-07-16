@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.13",
+    "version": "0.2.14",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.14": {
+        "en": "Fix the water pump energy role, add login country selection, and make write refresh polling more reliable.",
+        "de": "Korrigiert die Energie-Rolle der Poolpumpe, ergaenzt die Login-Landesauswahl und macht Write-Refresh-Polling zuverlaessiger.",
+        "ru": "Ispravlena rol energii nasosa, dobavlen vybor strany vhoda i povyshena nadezhnost write-refresh pollinga.",
+        "pt": "Corrige a funcao de energia da bomba, adiciona selecao de pais de login e torna o polling de write refresh mais confiavel.",
+        "nl": "Corrigeert de energierol van de pomp, voegt loginlandkeuze toe en maakt write-refresh-polling betrouwbaarder.",
+        "fr": "Corrige le role energie de la pompe, ajoute le choix du pays de connexion et rend le polling write refresh plus fiable.",
+        "it": "Corregge il ruolo energia della pompa, aggiunge la scelta del paese di login e rende piu affidabile il polling write refresh.",
+        "es": "Corrige el rol de energia de la bomba, agrega seleccion de pais de inicio y hace mas fiable el sondeo write refresh.",
+        "pl": "Poprawia role energii pompy, dodaje wybor kraju logowania i zwieksza niezawodnosc odpytywania write refresh.",
+        "uk": "Vypravleno rol enerhii nasosa, dodano vybir krainy vhodu ta pidvyshcheno nadiinist write-refresh opytuvannia.",
+        "zh-cn": "???????????????????????????????"
+      },
       "0.2.13": {
         "en": "Remove the reserved ioBroker keyword from adapter metadata.",
         "de": "Entfernt das reservierte ioBroker-Keyword aus den Adapter-Metadaten.",
@@ -131,19 +144,6 @@
         "pl": "Poprawia hierarchie obiektow ioBroker, przenosi przelacznik zasilania do power.switch i uzywa prawidlowych rol trybu.",
         "uk": "Виправлено ієрархію об'єктів ioBroker, перемикач живлення перенесено до power.switch, а для режимів використовуються допустимі ролі.",
         "zh-cn": "修正 ioBroker 对象层级，将电源开关移至 power.switch，并使用有效的模式角色。"
-      },
-      "0.2.6": {
-        "en": "Remove discouraged manual installation instructions from the README.",
-        "de": "Entfernt nicht empfohlene manuelle Installationshinweise aus der README.",
-        "ru": "Из README удалены не рекомендуемые инструкции по ручной установке.",
-        "pt": "Remove instrucoes de instalacao manual nao recomendadas do README.",
-        "nl": "Verwijdert afgeraden handmatige installatie-instructies uit de README.",
-        "fr": "Supprime du README les instructions d installation manuelle deconseillees.",
-        "it": "Rimuove dal README le istruzioni di installazione manuale sconsigliate.",
-        "es": "Elimina del README las instrucciones desaconsejadas de instalacion manual.",
-        "pl": "Usuwa z README niezalecane instrukcje recznej instalacji.",
-        "uk": "З README вилучено нерекомендовані інструкції з ручного встановлення.",
-        "zh-cn": "从 README 中移除不推荐的手动安装说明。"
       }
     },
     "dependencies": [
@@ -173,7 +173,8 @@
     "password": "",
     "scanInterval": 30,
     "courtyardId": "",
-    "createRawStates": false
+    "createRawStates": false,
+    "loginCountry": ""
   },
   "objects": [],
   "instanceObjects": [
