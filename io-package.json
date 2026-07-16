@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "fairland",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "titleLang": {
       "en": "Fairland (iGarden)",
       "de": "Fairland (iGarden)",
@@ -54,6 +54,19 @@
     "icon": "fairland.png",
     "extIcon": "https://raw.githubusercontent.com/dude2k/ioBroker.fairland/main/admin/fairland.png",
     "news": {
+      "0.2.15": {
+        "en": "Replace the courtyard ID text field with a dynamic iGarden courtyard dropdown.",
+        "de": "Ersetzt das Courtyard-ID-Textfeld durch ein dynamisches iGarden-Hof-Dropdown.",
+        "ru": "Tekstovoe pole Courtyard ID zameneno dinamicheskim vypadayushchim spiskom dvorov iGarden.",
+        "pt": "Substitui o campo de texto Courtyard ID por uma lista suspensa dinamica de patios iGarden.",
+        "nl": "Vervangt het Courtyard-ID tekstveld door een dynamische iGarden-courtyard keuzelijst.",
+        "fr": "Remplace le champ texte Courtyard ID par une liste deroulante dynamique des cours iGarden.",
+        "it": "Sostituisce il campo testo Courtyard ID con un menu dinamico dei cortili iGarden.",
+        "es": "Sustituye el campo de texto Courtyard ID por un desplegable dinamico de patios iGarden.",
+        "pl": "Zastepuje pole tekstowe Courtyard ID dynamiczna lista dziedzincow iGarden.",
+        "uk": "Tekstove pole Courtyard ID zamineno dynamichnym spyskom dvoriv iGarden.",
+        "zh-cn": "Yong dongtai iGarden courtyard xiala caidan tihuan Courtyard ID wenben ziduan."
+      },
       "0.2.14": {
         "en": "Fix the water pump energy role, add login country selection, and make write refresh polling more reliable.",
         "de": "Korrigiert die Energie-Rolle der Poolpumpe, ergaenzt die Login-Landesauswahl und macht Write-Refresh-Polling zuverlaessiger.",
@@ -131,19 +144,6 @@
         "pl": "Zastepuje krok wdrazania wydania, aby zaufana publikacja npm z provenance nadal dzialala.",
         "uk": "Замінено крок розгортання релізу, щоб довірена публікація npm з provenance продовжувала працювати.",
         "zh-cn": "替换发布部署步骤，以保持带 provenance 的可信 npm 发布正常工作。"
-      },
-      "0.2.7": {
-        "en": "Fix ioBroker object hierarchy, move the power switch to power.switch, and use valid mode roles.",
-        "de": "Korrigiert die ioBroker-Objekthierarchie, verschiebt den Power-Schalter nach power.switch und nutzt gueltige Modus-Rollen.",
-        "ru": "Исправлена иерархия объектов ioBroker, переключатель питания перенесен в power.switch, а для режимов используются допустимые роли.",
-        "pt": "Corrige a hierarquia de objetos ioBroker, move o interruptor de energia para power.switch e usa funcoes de modo validas.",
-        "nl": "Corrigeert de ioBroker-objecthierarchie, verplaatst de powerschakelaar naar power.switch en gebruikt geldige modusrollen.",
-        "fr": "Corrige la hierarchie des objets ioBroker, deplace l interrupteur d alimentation vers power.switch et utilise des roles de mode valides.",
-        "it": "Corregge la gerarchia degli oggetti ioBroker, sposta l interruttore di alimentazione in power.switch e usa ruoli di modalita validi.",
-        "es": "Corrige la jerarquia de objetos ioBroker, mueve el interruptor de energia a power.switch y usa roles de modo validos.",
-        "pl": "Poprawia hierarchie obiektow ioBroker, przenosi przelacznik zasilania do power.switch i uzywa prawidlowych rol trybu.",
-        "uk": "Виправлено ієрархію об'єктів ioBroker, перемикач живлення перенесено до power.switch, а для режимів використовуються допустимі ролі.",
-        "zh-cn": "修正 ioBroker 对象层级，将电源开关移至 power.switch，并使用有效的模式角色。"
       }
     },
     "dependencies": [
@@ -160,7 +160,10 @@
       "type": "free",
       "license": "MIT"
     },
-    "tier": 3
+    "tier": 3,
+    "supportedMessages": {
+      "custom": true
+    }
   },
   "protectedNative": [
     "password"

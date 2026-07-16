@@ -105,9 +105,18 @@
       "newLine": true
     },
     "courtyardId": {
-      "type": "text",
+      "type": "selectSendTo",
       "label": "Courtyard ID (optional)",
-      "help": "Leave empty to use the first courtyard returned by the iGarden cloud. If you have several courtyards, set the desired ID from the adapter log.",
+      "help": "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud.",
+      "command": "getCourtyards",
+      "jsonData": "{\"accountName\":\"${data.accountName}\",\"password\":\"${data.password}\",\"loginCountry\":\"${data.loginCountry}\"}",
+      "manual": true,
+      "alsoDependsOn": [
+        "accountName",
+        "password",
+        "loginCountry"
+      ],
+      "noTranslation": true,
       "xs": 12,
       "sm": 6,
       "md": 6,

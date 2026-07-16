@@ -58,8 +58,8 @@ The instance configuration contains:
   `Automatic` if your account works without an explicit country code.
 - `Scan interval`: polling interval in seconds, minimum 10 seconds, maximum
   3600 seconds
-- `Courtyard ID`: optional. Leave empty to use the first courtyard returned by
-  the cloud. If the account has several courtyards, the adapter logs all IDs.
+- `Courtyard ID`: optional dynamic selection from the iGarden cloud. Leave
+  `Automatic` to use the first courtyard returned by the cloud.
 - `Create raw dpId states`: optional diagnostic states under
   `devices.<device>.raw.dp_<id>`
 
@@ -160,6 +160,10 @@ The original project license notice is preserved in `LICENSE`, and additional
 third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
+
+### 0.2.15
+
+- Replaced the Courtyard ID text field with a dynamic iGarden courtyard dropdown.
 
 ### 0.2.14
 
