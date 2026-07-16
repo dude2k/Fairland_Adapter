@@ -161,6 +161,10 @@ third-party notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 ## Changelog
 
+### 0.2.16
+
+- Translated the new admin configuration help texts for repository checks.
+
 ### 0.2.15
 
 - Replaced the Courtyard ID text field with a dynamic iGarden courtyard dropdown.

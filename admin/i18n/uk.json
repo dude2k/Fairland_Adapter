@@ -5,9 +5,9 @@
     "Scan interval in seconds": "Interval opytuvannia v sekundakh",
     "iGarden account e-mail": "E-mail oblikovoho zapysu iGarden",
     "iGarden password": "Parol iGarden",
-    "Login country": "Login country",
-    "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.": "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.",
-    "Automatic": "Automatic",
+    "Login country": "Kraina vhodu",
+    "Select the country code used for iGarden login. Leave Automatic if your account works without a country code.": "Oberit kod krainy dlia vhodu iGarden. Zalyshte Avtomatychno, yakshcho oblikovyi zapys pratsiuie bez kodu krainy.",
+    "Automatic": "Avtomatychno",
     "Austria (+43)": "Austria (+43)",
     "Switzerland (+41)": "Switzerland (+41)",
     "China (+86)": "China (+86)",
@@ -21,5 +21,5 @@
     "Poland (+48)": "Poland (+48)",
     "Portugal (+351)": "Portugal (+351)",
     "United States (+1)": "United States (+1)",
-    "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud.": "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud."
+    "Select a courtyard from the iGarden cloud. Leave Automatic to use the first courtyard returned by the cloud.": "Oberit dvir iz khmary iGarden. Zalyshte Avtomatychno, shchob vykorystaty pershyi dvir iz khmary."
 }
