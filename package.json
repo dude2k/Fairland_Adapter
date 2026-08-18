@@ -47,7 +47,7 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.4.1"
+    "@iobroker/adapter-core": "^3.4.3"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^5.2.1",
